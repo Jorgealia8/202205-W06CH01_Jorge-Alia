@@ -1,14 +1,18 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import { CharacterModel } from '../models/character';
+import { characterReducer } from '../reducers/character.reducer';
+
+export interface iState {
+  characters: Array<CharacterModel>;
+}
+
+const preloadedState = {
+  characters: [],
+};
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    characters: characterReducer,
+  },
+  preloadedState,
 });
-
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
